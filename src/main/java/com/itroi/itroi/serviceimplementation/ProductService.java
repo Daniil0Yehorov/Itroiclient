@@ -27,18 +27,6 @@ public interface ProductService {
 
     /**
      * 
-     * @return
-     *     returns java.util.List<com.itroi.itroi.serviceimplementation.Product>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getAllProducts", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetAllProducts")
-    @ResponseWrapper(localName = "getAllProductsResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetAllProductsResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/ProductService/getAllProductsRequest", output = "http://ServiceImplementation.itroi.itroi.com/ProductService/getAllProductsResponse")
-    public List<Product> getAllProducts();
-
-    /**
-     * 
      * @param arg0
      * @return
      *     returns com.itroi.itroi.serviceimplementation.Product
@@ -57,6 +45,18 @@ public interface ProductService {
      * @param arg0
      */
     @WebMethod
+    @RequestWrapper(localName = "deleteProduct", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.DeleteProduct")
+    @ResponseWrapper(localName = "deleteProductResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.DeleteProductResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/ProductService/deleteProductRequest", output = "http://ServiceImplementation.itroi.itroi.com/ProductService/deleteProductResponse")
+    public void deleteProduct(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0);
+
+    /**
+     * 
+     * @param arg0
+     */
+    @WebMethod
     @RequestWrapper(localName = "updateProduct", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.UpdateProduct")
     @ResponseWrapper(localName = "updateProductResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.UpdateProductResponse")
     @Action(input = "http://ServiceImplementation.itroi.itroi.com/ProductService/updateProductRequest", output = "http://ServiceImplementation.itroi.itroi.com/ProductService/updateProductResponse")
@@ -66,15 +66,15 @@ public interface ProductService {
 
     /**
      * 
-     * @param arg0
+     * @return
+     *     returns java.util.List<com.itroi.itroi.serviceimplementation.Product>
      */
     @WebMethod
-    @RequestWrapper(localName = "deleteProduct", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.DeleteProduct")
-    @ResponseWrapper(localName = "deleteProductResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.DeleteProductResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/ProductService/deleteProductRequest", output = "http://ServiceImplementation.itroi.itroi.com/ProductService/deleteProductResponse")
-    public void deleteProduct(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0);
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getAllProducts", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetAllProducts")
+    @ResponseWrapper(localName = "getAllProductsResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetAllProductsResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/ProductService/getAllProductsRequest", output = "http://ServiceImplementation.itroi.itroi.com/ProductService/getAllProductsResponse")
+    public List<Product> getAllProducts();
 
     /**
      * 

@@ -26,6 +26,39 @@ public interface UserService {
 
     /**
      * 
+     * @param arg0
+     * @return
+     *     returns com.itroi.itroi.serviceimplementation.User
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getUserById", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetUserById")
+    @ResponseWrapper(localName = "getUserByIdResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetUserByIdResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/UserService/getUserByIdRequest", output = "http://ServiceImplementation.itroi.itroi.com/UserService/getUserByIdResponse")
+    public User getUserById(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0);
+
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns com.itroi.itroi.serviceimplementation.User
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getUserforAuth", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetUserforAuth")
+    @ResponseWrapper(localName = "getUserforAuthResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetUserforAuthResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/UserService/getUserforAuthRequest", output = "http://ServiceImplementation.itroi.itroi.com/UserService/getUserforAuthResponse")
+    public User getUserforAuth(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1);
+
+    /**
+     * 
      * @param arg1
      * @param arg0
      */
@@ -63,21 +96,6 @@ public interface UserService {
     @ResponseWrapper(localName = "deleteUserResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.DeleteUserResponse")
     @Action(input = "http://ServiceImplementation.itroi.itroi.com/UserService/deleteUserRequest", output = "http://ServiceImplementation.itroi.itroi.com/UserService/deleteUserResponse")
     public void deleteUser(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns com.itroi.itroi.serviceimplementation.User
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getUserById", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetUserById")
-    @ResponseWrapper(localName = "getUserByIdResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetUserByIdResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/UserService/getUserByIdRequest", output = "http://ServiceImplementation.itroi.itroi.com/UserService/getUserByIdResponse")
-    public User getUserById(
         @WebParam(name = "arg0", targetNamespace = "")
         int arg0);
 

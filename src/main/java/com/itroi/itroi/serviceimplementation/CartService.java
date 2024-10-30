@@ -33,24 +33,54 @@ public interface CartService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getCart", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetCart")
-    @ResponseWrapper(localName = "getCartResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetCartResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/CartService/getCartRequest", output = "http://ServiceImplementation.itroi.itroi.com/CartService/getCartResponse")
-    public Cart getCart(
+    @RequestWrapper(localName = "getCartById", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetCartById")
+    @ResponseWrapper(localName = "getCartByIdResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetCartByIdResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/CartService/getCartByIdRequest", output = "http://ServiceImplementation.itroi.itroi.com/CartService/getCartByIdResponse")
+    public Cart getCartById(
         @WebParam(name = "arg0", targetNamespace = "")
         int arg0);
 
     /**
      * 
+     * @param arg1
      * @param arg0
      */
     @WebMethod
-    @RequestWrapper(localName = "checkout", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.Checkout")
-    @ResponseWrapper(localName = "checkoutResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.CheckoutResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/CartService/checkoutRequest", output = "http://ServiceImplementation.itroi.itroi.com/CartService/checkoutResponse")
-    public void checkout(
+    @RequestWrapper(localName = "addProductToCart", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.AddProductToCart")
+    @ResponseWrapper(localName = "addProductToCartResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.AddProductToCartResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/CartService/addProductToCartRequest", output = "http://ServiceImplementation.itroi.itroi.com/CartService/addProductToCartResponse")
+    public void addProductToCart(
         @WebParam(name = "arg0", targetNamespace = "")
-        int arg0);
+        int arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        int arg1);
+
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     */
+    @WebMethod
+    @RequestWrapper(localName = "updateCartStatus", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.UpdateCartStatus")
+    @ResponseWrapper(localName = "updateCartStatusResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.UpdateCartStatusResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/CartService/updateCartStatusRequest", output = "http://ServiceImplementation.itroi.itroi.com/CartService/updateCartStatusResponse")
+    public void updateCartStatus(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1);
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<com.itroi.itroi.serviceimplementation.Cart>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getAllCarts", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetAllCarts")
+    @ResponseWrapper(localName = "getAllCartsResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetAllCartsResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/CartService/getAllCartsRequest", output = "http://ServiceImplementation.itroi.itroi.com/CartService/getAllCartsResponse")
+    public List<Cart> getAllCarts();
 
     /**
      * 
@@ -69,61 +99,28 @@ public interface CartService {
 
     /**
      * 
-     * @param arg1
-     * @param arg0
-     */
-    @WebMethod
-    @RequestWrapper(localName = "updateOrderStatus", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.UpdateOrderStatus")
-    @ResponseWrapper(localName = "updateOrderStatusResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.UpdateOrderStatusResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/CartService/updateOrderStatusRequest", output = "http://ServiceImplementation.itroi.itroi.com/CartService/updateOrderStatusResponse")
-    public void updateOrderStatus(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        String arg1);
-
-    /**
-     * 
-     * @param arg2
-     * @param arg1
-     * @param arg0
-     */
-    @WebMethod
-    @RequestWrapper(localName = "addProductToCart", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.AddProductToCart")
-    @ResponseWrapper(localName = "addProductToCartResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.AddProductToCartResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/CartService/addProductToCartRequest", output = "http://ServiceImplementation.itroi.itroi.com/CartService/addProductToCartResponse")
-    public void addProductToCart(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        int arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        int arg2);
-
-    /**
-     * 
-     * @return
-     *     returns java.util.List<com.itroi.itroi.serviceimplementation.Cart>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getAllCarts", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetAllCarts")
-    @ResponseWrapper(localName = "getAllCartsResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetAllCartsResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/CartService/getAllCartsRequest", output = "http://ServiceImplementation.itroi.itroi.com/CartService/getAllCartsResponse")
-    public List<Cart> getAllCarts();
-
-    /**
-     * 
      * @param arg0
      * @return
      *     returns com.itroi.itroi.serviceimplementation.Cart
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getCartById", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetCartById")
-    @ResponseWrapper(localName = "getCartByIdResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetCartByIdResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/CartService/getCartByIdRequest", output = "http://ServiceImplementation.itroi.itroi.com/CartService/getCartByIdResponse")
-    public Cart getCartById(
+    @RequestWrapper(localName = "getCart", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetCart")
+    @ResponseWrapper(localName = "getCartResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetCartResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/CartService/getCartRequest", output = "http://ServiceImplementation.itroi.itroi.com/CartService/getCartResponse")
+    public Cart getCart(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0);
+
+    /**
+     * 
+     * @param arg0
+     */
+    @WebMethod
+    @RequestWrapper(localName = "checkout", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.Checkout")
+    @ResponseWrapper(localName = "checkoutResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.CheckoutResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/CartService/checkoutRequest", output = "http://ServiceImplementation.itroi.itroi.com/CartService/checkoutResponse")
+    public void checkout(
         @WebParam(name = "arg0", targetNamespace = "")
         int arg0);
 

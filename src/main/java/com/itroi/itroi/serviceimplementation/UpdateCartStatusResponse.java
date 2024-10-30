@@ -7,12 +7,12 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for updateOrderStatusResponse complex type.
+ * <p>Java class for updateCartStatusResponse complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="updateOrderStatusResponse"&gt;
+ * &lt;complexType name="updateCartStatusResponse"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
@@ -25,8 +25,8 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "updateOrderStatusResponse")
-public class UpdateOrderStatusResponse {
+@XmlType(name = "updateCartStatusResponse")
+public class UpdateCartStatusResponse {
 
 
 }

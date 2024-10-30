@@ -7,17 +7,17 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for addProductToCart complex type.
+ * <p>Java class for getUserforAuth complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="addProductToCart"&gt;
+ * &lt;complexType name="getUserforAuth"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
- *         &lt;element name="arg1" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="arg1" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -27,44 +27,60 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "addProductToCart", propOrder = {
+@XmlType(name = "getUserforAuth", propOrder = {
     "arg0",
     "arg1"
 })
-public class AddProductToCart {
+public class GetUserforAuth {
 
-    protected int arg0;
-    protected int arg1;
+    protected String arg0;
+    protected String arg1;
 
     /**
      * Gets the value of the arg0 property.
      * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
-    public int getArg0() {
+    public String getArg0() {
         return arg0;
     }
 
     /**
      * Sets the value of the arg0 property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
-    public void setArg0(int value) {
+    public void setArg0(String value) {
         this.arg0 = value;
     }
 
     /**
      * Gets the value of the arg1 property.
      * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
-    public int getArg1() {
+    public String getArg1() {
         return arg1;
     }
 
     /**
      * Sets the value of the arg1 property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
-    public void setArg1(int value) {
+    public void setArg1(String value) {
         this.arg1 = value;
     }
 
