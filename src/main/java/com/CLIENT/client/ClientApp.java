@@ -18,22 +18,9 @@ public class ClientApp {
 
         try {
 
-            URL productServiceWsdlURL = new URL("http://localhost:8081/ws/products?wsdl");
-            URL userServiceWsdlURL = new URL("http://localhost:8081/ws/users?wsdl");
-            URL cartServiceWsdlURL = new URL("http://localhost:8081/ws/carts?wsdl");
-
-            QName productQName = new QName("http://ServiceImplementation.itroi.itroi.com/", "ProductServiceImplService");
-            QName userQName = new QName("http://ServiceImplementation.itroi.itroi.com/", "UserServiceImplService");
-            QName cartQName = new QName("http://ServiceImplementation.itroi.itroi.com/", "CartServiceImplService");
-
-            jakarta.xml.ws.Service productServiceInstance = jakarta.xml.ws.Service.create(productServiceWsdlURL, productQName);
-            jakarta.xml.ws.Service userServiceInstance = jakarta.xml.ws.Service.create(userServiceWsdlURL, userQName);
-            jakarta.xml.ws.Service cartServiceInstance = jakarta.xml.ws.Service.create(cartServiceWsdlURL, cartQName);
-
-            productService = productServiceInstance.getPort(ProductService.class);
-            userService = userServiceInstance.getPort(UserService.class);
-            cartService = cartServiceInstance.getPort(CartService.class);
             //adding some data
+            //and getting services
+            initializeServices();
             loadUsers();
             loadProducts();
 
@@ -44,7 +31,7 @@ public class ClientApp {
                 System.out.println("3. Вихід");
                 System.out.print("Виберіть опцію: ");
                 int choice = scanner.nextInt();
-                scanner.nextLine(); // Очищення буфера
+                scanner.nextLine();
 
                 switch (choice) {
                     case 1:
@@ -66,7 +53,7 @@ public class ClientApp {
 
     }
 
-    private static void register(Scanner scanner) {
+    private static void register(Scanner scanner) throws ClientFaultException_Exception {
         System.out.print("Введіть ім'я: ");
         String name = scanner.nextLine();
         System.out.print("Введіть логін: ");
@@ -88,25 +75,42 @@ public class ClientApp {
         newUser.setPhone(phone);
         newUser.setEmail(email);
         newUser.setID(userId);
-        userService.createUser(newUser);
-        System.out.println("Користувача зареєстровано.");
-        loggedInUser = newUser;
-        userMenu(scanner);
+
+        try {
+            userService.createUser(newUser);
+            System.out.println("Користувача зареєстровано.");
+            loggedInUser = newUser;
+            userMenu(scanner);
+        } catch (ClientFaultException_Exception e) {
+            System.out.println("Помилка клієнта: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Помилка сервера: " + e.getMessage());
+        }
+    }
+    private static void initializeServices() throws Exception {
+        URL productServiceWsdlURL = new URL("http://localhost:8081/ws/products?wsdl");
+        URL userServiceWsdlURL = new URL("http://localhost:8081/ws/users?wsdl");
+        URL cartServiceWsdlURL = new URL("http://localhost:8081/ws/carts?wsdl");
+
+        QName productQName = new QName("http://ServiceImplementation.itroi.itroi.com/", "ProductServiceImplService");
+        QName userQName = new QName("http://ServiceImplementation.itroi.itroi.com/", "UserServiceImplService");
+        QName cartQName = new QName("http://ServiceImplementation.itroi.itroi.com/", "CartServiceImplService");
+
+        jakarta.xml.ws.Service productServiceInstance = jakarta.xml.ws.Service.create(productServiceWsdlURL, productQName);
+        jakarta.xml.ws.Service userServiceInstance = jakarta.xml.ws.Service.create(userServiceWsdlURL, userQName);
+        jakarta.xml.ws.Service cartServiceInstance = jakarta.xml.ws.Service.create(cartServiceWsdlURL, cartQName);
+
+        productService = productServiceInstance.getPort(ProductService.class);
+        userService = userServiceInstance.getPort(UserService.class);
+        cartService = cartServiceInstance.getPort(CartService.class);
     }
 
-    private static int generateUniqueUserId() {
+    private static int generateUniqueUserId() throws ClientFaultException_Exception {
         int userId = 1;
-
-        while (userService.getUserById(userId) != null) {userId++;}
-
+        while (userService.getUserById(userId) != null) {
+            userId++;
+        }
         return userId;
-    }
-    private static int generateUniqueProductId() {
-        int PId = 1;
-
-        while (productService.getProductById(PId) != null) {PId++;}
-
-        return PId;
     }
 
     private static void login(Scanner scanner) {
@@ -114,18 +118,25 @@ public class ClientApp {
         String login = scanner.nextLine();
         System.out.print("Введіть пароль: ");
         String password = scanner.nextLine();
-        loggedInUser = userService.getUserforAuth(password, login);
-        if (loggedInUser != null) {
-            if (loggedInUser.getType().equals("Адміністратор")) {
-                adminMenu(scanner);
+
+        try {
+            loggedInUser = userService.getUserforAuth(password, login);
+            if (loggedInUser != null) {
+                if (loggedInUser.getType().equals("Адміністратор")) {
+                    adminMenu(scanner);
+                } else {
+                    userMenu(scanner);
+                }
             } else {
-                userMenu(scanner);
+                System.out.println("Неправильний логін або пароль.");
             }
-        } else {
-            System.out.println("Неправильний логін або пароль.");
+        } catch (ClientFaultException_Exception e) {
+            System.out.println("Помилка клієнта: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Помилка сервера: " + e.getMessage());
         }
     }
-    private static void adminMenu(Scanner scanner) {
+    private static void adminMenu(Scanner scanner) throws ClientFaultException_Exception {
         while (true) {
             System.out.println("\n--- Меню Адміністратора ---");
             System.out.println("1. Додати продукт");
@@ -167,7 +178,7 @@ public class ClientApp {
             System.out.println("5. Вийти");
             System.out.print("Виберіть опцію: ");
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Очищення буфера
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -190,7 +201,8 @@ public class ClientApp {
         }
     }
 
-    private static void addProduct(Scanner scanner) {
+
+    private static void addProduct(Scanner scanner) throws ClientFaultException_Exception {
         System.out.print("Введіть назву продукту: ");
         String name = scanner.nextLine();
 
@@ -242,125 +254,169 @@ public class ClientApp {
         newProduct.setCategory(category);
         newProduct.setCountInStock(countInStock);
 
-        productService.addProduct(newProduct);
-        System.out.println("Продукт додано.");
+        try {
+            productService.addProduct(newProduct);
+            System.out.println("Продукт додано.");
+        } catch (ClientFaultException_Exception e) {
+            System.out.println("Помилка клієнта: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Помилка сервера: " + e.getMessage());
+        }
+    }
+    private static int generateUniqueProductId() throws ClientFaultException_Exception {
+        int productId = 1;
+
+        while (productService.getProductById(productId) != null) {
+            productId++;
+        }
+        return productId;
     }
 
     private static void updateProduct(Scanner scanner) {
         System.out.print("Введіть ID продукту для оновлення: ");
-        int id = scanner.nextInt();
+        int productId = scanner.nextInt();
         scanner.nextLine();
 
-        Product product = productService.getProductById(id);
-        if (product != null) {
-            System.out.print("Введіть нову назву продукту: ");
-            String name = scanner.nextLine();
+        try {
+            Product product = productService.getProductById(productId);
+            if (product != null) {
+                System.out.print("Введіть нову назву продукту (поточна: " + product.getName() + "): ");
+                String name = scanner.nextLine();
 
-            System.out.print("Введіть новий опис продукту: ");
-            String description = scanner.nextLine();
+                System.out.print("Введіть новий опис продукту (поточний: " + product.getDescription() + "): ");
+                String description = scanner.nextLine();
 
-            double price = 0.0;
-            while (true) {
-                System.out.print("Введіть нову ціну продукту: ");
-                try {
-                    price = scanner.nextDouble();
-                    scanner.nextLine();
-                    if (price <= 0) {
-                        System.out.println("Ціна повинна бути більше 0. Спробуйте ще раз.");
-                    } else {
-                        break;
+                double price = 0.0;
+                while (true) {
+                    System.out.print("Введіть нову ціну продукту (поточна: " + product.getPrice() + "): ");
+                    try {
+                        price = scanner.nextDouble();
+                        scanner.nextLine();
+                        if (price <= 0) {
+                            System.out.println("Ціна повинна бути більше 0. Спробуйте ще раз.");
+                        } else {
+                            break;
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("Невірний формат. Введіть число.");
+                        scanner.nextLine();
                     }
-                } catch (InputMismatchException e) {
-                    System.out.println("Невірний формат. Введіть число.");
-                    scanner.nextLine();
                 }
-            }
 
-            System.out.print("Введіть нову категорію продукту: ");
-            String category = scanner.nextLine();
+                System.out.print("Введіть нову категорію продукту (поточна: " + product.getCategory() + "): ");
+                String category = scanner.nextLine();
 
-            int countInStock = 0;
-            while (true) {
-                System.out.print("Введіть нову кількість на складі: ");
-                try {
-                    countInStock = scanner.nextInt();
-                    scanner.nextLine();
-                    if (countInStock < 0) {
-                        System.out.println("Кількість не може бути від'ємною. Спробуйте ще раз.");
-                    } else {
-                        break;
+                int countInStock = 0;
+                while (true) {
+                    System.out.print("Введіть нову кількість на складі (поточна: " + product.getCountInStock() + "): ");
+                    try {
+                        countInStock = scanner.nextInt();
+                        scanner.nextLine();
+                        if (countInStock < 0) {
+                            System.out.println("Кількість не може бути від'ємною. Спробуйте ще раз.");
+                        } else {
+                            break;
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("Невірний формат. Введіть ціле число.");
+                        scanner.nextLine();
                     }
-                } catch (InputMismatchException e) {
-                    System.out.println("Невірний формат. Введіть ціле число.");
-                    scanner.nextLine();
                 }
+
+                product.setName(name);
+                product.setDescription(description);
+                product.setPrice(price);
+                product.setCategory(category);
+                product.setCountInStock(countInStock);
+
+                productService.updateProduct(product);
+                System.out.println("Продукт оновлено.");
+            } else {
+                System.out.println("Продукт не знайдено.");
             }
-
-            product.setName(name);
-            product.setDescription(description);
-            product.setPrice(price);
-            product.setCategory(category);
-            product.setCountInStock(countInStock);
-
-            productService.updateProduct(product);
-            System.out.println("Продукт оновлено.");
-        } else {
-            System.out.println("Продукт не знайдено.");
+        } catch (ClientFaultException_Exception e) {
+            System.out.println("Помилка клієнта: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Помилка сервера: " + e.getMessage());
         }
     }
 
     private static void viewAllProducts() {
-        List<Product> products = productService.getAllProducts();
-        if (products.isEmpty()) {
-            System.out.println("Немає продуктів для відображення.");
-        } else {
-            System.out.println("Всі продукти:");
+        try {
+            List<Product> products = productService.getAllProducts();
+            System.out.println("--- Усі продукти ---");
             for (Product product : products) {
-                System.out.println("ID: " + product.getID());
-                System.out.println("Назва: " + product.getName());
-                System.out.println("Опис: " + product.getDescription());
-                System.out.println("Ціна: " + product.getPrice());
-                System.out.println("Категорія: " + product.getCategory());
-                System.out.println("Кількість на складі: " + product.getCountInStock());
-                System.out.println("-----------------------------------");
+                System.out.println(product.getID() + ". " + product.getName() + " - " + product.getPrice() + " грн.");
             }
+        } catch (Exception e) {
+            System.out.println("Помилка сервера: " + e.getMessage());
         }
     }
 
     private static void deleteProduct(Scanner scanner) {
         System.out.print("Введіть ID продукту для видалення: ");
-        int id = scanner.nextInt();
+        int productId = scanner.nextInt();
         scanner.nextLine();
-        productService.deleteProduct(id);
-        System.out.println("Продукт видалено.");
+
+        try {
+            productService.deleteProduct(productId);
+            System.out.println("Продукт видалено.");
+        } catch (ClientFaultException_Exception e) {
+            System.out.println("Помилка клієнта: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Помилка сервера: " + e.getMessage());
+        }
     }
-
-
 
     private static void addProductToCart(Scanner scanner) {
-        System.out.print("Введіть ID продукту для додавання: ");
-        int productId = scanner.nextInt();
-
-        cartService.addProductToCart(loggedInUser.getID(), productId);
-        System.out.println("Продукт додано до кошика.");
-    }
-
-    private static void removeProductFromCart(Scanner scanner) {
-        System.out.print("Введіть ID продукту для видалення: ");
+        System.out.print("Введіть ID продукту для додавання до кошика: ");
         int productId = scanner.nextInt();
         scanner.nextLine();
 
-        cartService.removeProductFromCart(loggedInUser.getID(), productId);
-        System.out.println("Продукт видалено з кошика.");
+        try {
+            Product product = productService.getProductById(productId);
+            if (product != null) {
+                Cart cart = cartService.getCartById(loggedInUser.getID());
+                cartService.addProductToCart(cart.getUserID(), product.getID());
+                System.out.println("Продукт додано до кошика.");
+            } else {
+                System.out.println("Продукт не знайдено.");
+            }
+        } catch (ClientFaultException_Exception e) {
+            System.out.println("Помилка клієнта: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Помилка сервера: " + e.getMessage());
+        }
+    }
+
+
+    private static void removeProductFromCart(Scanner scanner) {
+        System.out.print("Введіть ID продукту для видалення з кошика: ");
+        int productId = scanner.nextInt();
+        scanner.nextLine();
+
+        try {
+            Cart cart = cartService.getCartById(loggedInUser.getID());
+            cartService.removeProductFromCart(cart.getUserID(), productId);
+            System.out.println("Продукт видалено з кошика.");
+        } catch (ClientFaultException_Exception e) {
+            System.out.println("Помилка клієнта: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Помилка сервера: " + e.getMessage());
+        }
     }
 
     private static void checkout() {
-        cartService.checkout(loggedInUser.getID());
-        System.out.println("Замовлення завершено.");
-        Cart cart=cartService.getCartById(loggedInUser.getID());
-        System.out.println(cart.getTotalAmount());
+        try {
+            Cart cart = cartService.getCartById(loggedInUser.getID());
+            cartService.checkout(cart.getUserID());
+            System.out.println("Замовлення успішно оформлено.");
+        } catch (Exception e) {
+            System.out.println("Помилка сервера: " + e.getMessage());
+        }
+        //exception
     }
-    public static void loadProducts() {
+    public static void loadProducts() throws ClientFaultException_Exception {
         Product product1 = new Product();
         product1.setCategory("Dog Food");
         product1.setCountInStock(50);
@@ -389,7 +445,7 @@ public class ClientApp {
         productService.addProduct(product3);
     }
 
-    public static void loadUsers() {
+    public static void loadUsers() throws ClientFaultException_Exception {
         User admin = new User();
         admin.setEmail("admin@example.com");
         admin.setID(1);

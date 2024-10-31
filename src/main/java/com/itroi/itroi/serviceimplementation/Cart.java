@@ -19,7 +19,6 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="ID" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *         &lt;element name="ProductIDs" minOccurs="0"&gt;
  *           &lt;complexType&gt;
  *             &lt;complexContent&gt;
@@ -43,37 +42,18 @@ import jakarta.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "cart", propOrder = {
-    "id",
     "productIDs",
     "totalAmount",
     "userID"
 })
 public class Cart {
 
-    @XmlElement(name = "ID")
-    protected int id;
     @XmlElement(name = "ProductIDs")
     protected Cart.ProductIDs productIDs;
     @XmlElement(name = "TotalAmount")
     protected double totalAmount;
     @XmlElement(name = "UserID")
     protected int userID;
-
-    /**
-     * Gets the value of the id property.
-     * 
-     */
-    public int getID() {
-        return id;
-    }
-
-    /**
-     * Sets the value of the id property.
-     * 
-     */
-    public void setID(int value) {
-        this.id = value;
-    }
 
     /**
      * Gets the value of the productIDs property.

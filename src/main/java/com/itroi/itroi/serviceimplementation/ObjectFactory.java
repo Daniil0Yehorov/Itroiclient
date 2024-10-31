@@ -44,6 +44,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ClientFaultException }
+     * 
+     */
+    public ClientFaultException createClientFaultException() {
+        return new ClientFaultException();
+    }
+
+    /**
      * Create an instance of {@link Product }
      * 
      */

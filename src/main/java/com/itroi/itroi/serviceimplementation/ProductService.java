@@ -8,6 +8,7 @@ import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
 import jakarta.xml.bind.annotation.XmlSeeAlso;
 import jakarta.xml.ws.Action;
+import jakarta.xml.ws.FaultAction;
 import jakarta.xml.ws.RequestWrapper;
 import jakarta.xml.ws.ResponseWrapper;
 
@@ -20,7 +21,8 @@ import jakarta.xml.ws.ResponseWrapper;
  */
 @WebService(name = "ProductService", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/")
 @XmlSeeAlso({
-    ObjectFactory.class
+    com.itroi.itroi.exception.ObjectFactory.class,
+    com.itroi.itroi.serviceimplementation.ObjectFactory.class
 })
 public interface ProductService {
 
@@ -30,39 +32,54 @@ public interface ProductService {
      * @param arg0
      * @return
      *     returns com.itroi.itroi.serviceimplementation.Product
+     * @throws ClientFaultException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "getProductById", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetProductById")
     @ResponseWrapper(localName = "getProductByIdResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetProductByIdResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/ProductService/getProductByIdRequest", output = "http://ServiceImplementation.itroi.itroi.com/ProductService/getProductByIdResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/ProductService/getProductByIdRequest", output = "http://ServiceImplementation.itroi.itroi.com/ProductService/getProductByIdResponse", fault = {
+        @FaultAction(className = ClientFaultException_Exception.class, value = "http://ServiceImplementation.itroi.itroi.com/ProductService/getProductById/Fault/ClientFaultException")
+    })
     public Product getProductById(
         @WebParam(name = "arg0", targetNamespace = "")
-        int arg0);
+        int arg0)
+        throws ClientFaultException_Exception
+    ;
 
     /**
      * 
      * @param arg0
+     * @throws ClientFaultException_Exception
      */
     @WebMethod
     @RequestWrapper(localName = "deleteProduct", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.DeleteProduct")
     @ResponseWrapper(localName = "deleteProductResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.DeleteProductResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/ProductService/deleteProductRequest", output = "http://ServiceImplementation.itroi.itroi.com/ProductService/deleteProductResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/ProductService/deleteProductRequest", output = "http://ServiceImplementation.itroi.itroi.com/ProductService/deleteProductResponse", fault = {
+        @FaultAction(className = ClientFaultException_Exception.class, value = "http://ServiceImplementation.itroi.itroi.com/ProductService/deleteProduct/Fault/ClientFaultException")
+    })
     public void deleteProduct(
         @WebParam(name = "arg0", targetNamespace = "")
-        int arg0);
+        int arg0)
+        throws ClientFaultException_Exception
+    ;
 
     /**
      * 
      * @param arg0
+     * @throws ClientFaultException_Exception
      */
     @WebMethod
     @RequestWrapper(localName = "updateProduct", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.UpdateProduct")
     @ResponseWrapper(localName = "updateProductResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.UpdateProductResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/ProductService/updateProductRequest", output = "http://ServiceImplementation.itroi.itroi.com/ProductService/updateProductResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/ProductService/updateProductRequest", output = "http://ServiceImplementation.itroi.itroi.com/ProductService/updateProductResponse", fault = {
+        @FaultAction(className = ClientFaultException_Exception.class, value = "http://ServiceImplementation.itroi.itroi.com/ProductService/updateProduct/Fault/ClientFaultException")
+    })
     public void updateProduct(
         @WebParam(name = "arg0", targetNamespace = "")
-        Product arg0);
+        Product arg0)
+        throws ClientFaultException_Exception
+    ;
 
     /**
      * 
@@ -81,14 +98,19 @@ public interface ProductService {
      * @param arg0
      * @return
      *     returns com.itroi.itroi.serviceimplementation.Product
+     * @throws ClientFaultException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "addProduct", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.AddProduct")
     @ResponseWrapper(localName = "addProductResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.AddProductResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/ProductService/addProductRequest", output = "http://ServiceImplementation.itroi.itroi.com/ProductService/addProductResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/ProductService/addProductRequest", output = "http://ServiceImplementation.itroi.itroi.com/ProductService/addProductResponse", fault = {
+        @FaultAction(className = ClientFaultException_Exception.class, value = "http://ServiceImplementation.itroi.itroi.com/ProductService/addProduct/Fault/ClientFaultException")
+    })
     public Product addProduct(
         @WebParam(name = "arg0", targetNamespace = "")
-        Product arg0);
+        Product arg0)
+        throws ClientFaultException_Exception
+    ;
 
 }
