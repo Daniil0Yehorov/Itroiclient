@@ -29,6 +29,8 @@ public class ObjectFactory {
     private final static QName _AddProductResponse_QNAME = new QName("http://ServiceImplementation.itroi.itroi.com/", "addProductResponse");
     private final static QName _DeleteProduct_QNAME = new QName("http://ServiceImplementation.itroi.itroi.com/", "deleteProduct");
     private final static QName _DeleteProductResponse_QNAME = new QName("http://ServiceImplementation.itroi.itroi.com/", "deleteProductResponse");
+    private final static QName _GenerateUniqueProductId_QNAME = new QName("http://ServiceImplementation.itroi.itroi.com/", "generateUniqueProductId");
+    private final static QName _GenerateUniqueProductIdResponse_QNAME = new QName("http://ServiceImplementation.itroi.itroi.com/", "generateUniqueProductIdResponse");
     private final static QName _GetAllProducts_QNAME = new QName("http://ServiceImplementation.itroi.itroi.com/", "getAllProducts");
     private final static QName _GetAllProductsResponse_QNAME = new QName("http://ServiceImplementation.itroi.itroi.com/", "getAllProductsResponse");
     private final static QName _GetProductById_QNAME = new QName("http://ServiceImplementation.itroi.itroi.com/", "getProductById");
@@ -89,6 +91,22 @@ public class ObjectFactory {
      */
     public DeleteProductResponse createDeleteProductResponse() {
         return new DeleteProductResponse();
+    }
+
+    /**
+     * Create an instance of {@link GenerateUniqueProductId }
+     * 
+     */
+    public GenerateUniqueProductId createGenerateUniqueProductId() {
+        return new GenerateUniqueProductId();
+    }
+
+    /**
+     * Create an instance of {@link GenerateUniqueProductIdResponse }
+     * 
+     */
+    public GenerateUniqueProductIdResponse createGenerateUniqueProductIdResponse() {
+        return new GenerateUniqueProductIdResponse();
     }
 
     /**
@@ -202,6 +220,32 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://ServiceImplementation.itroi.itroi.com/", name = "deleteProductResponse")
     public JAXBElement<DeleteProductResponse> createDeleteProductResponse(DeleteProductResponse value) {
         return new JAXBElement<DeleteProductResponse>(_DeleteProductResponse_QNAME, DeleteProductResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GenerateUniqueProductId }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GenerateUniqueProductId }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://ServiceImplementation.itroi.itroi.com/", name = "generateUniqueProductId")
+    public JAXBElement<GenerateUniqueProductId> createGenerateUniqueProductId(GenerateUniqueProductId value) {
+        return new JAXBElement<GenerateUniqueProductId>(_GenerateUniqueProductId_QNAME, GenerateUniqueProductId.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GenerateUniqueProductIdResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GenerateUniqueProductIdResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://ServiceImplementation.itroi.itroi.com/", name = "generateUniqueProductIdResponse")
+    public JAXBElement<GenerateUniqueProductIdResponse> createGenerateUniqueProductIdResponse(GenerateUniqueProductIdResponse value) {
+        return new JAXBElement<GenerateUniqueProductIdResponse>(_GenerateUniqueProductIdResponse_QNAME, GenerateUniqueProductIdResponse.class, null, value);
     }
 
     /**

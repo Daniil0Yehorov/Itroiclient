@@ -53,7 +53,7 @@ public class ClientApp {
 
     }
 
-    private static void register(Scanner scanner) throws ClientFaultException_Exception {
+    private static void register(Scanner scanner)  {
         System.out.print("Введіть ім'я: ");
         String name = scanner.nextLine();
         System.out.print("Введіть логін: ");
@@ -66,7 +66,7 @@ public class ClientApp {
         String phone = scanner.nextLine();
         String type = "Користувач";
 
-        int userId = generateUniqueUserId();
+        int newUserId = userService.generateUniqueUserId();
         User newUser = new User();
         newUser.setName(name);
         newUser.setType(type);
@@ -74,7 +74,7 @@ public class ClientApp {
         newUser.setPassword(password);
         newUser.setPhone(phone);
         newUser.setEmail(email);
-        newUser.setID(userId);
+        newUser.setID(newUserId);
 
         try {
             userService.createUser(newUser);
@@ -105,13 +105,6 @@ public class ClientApp {
         cartService = cartServiceInstance.getPort(CartService.class);
     }
 
-    private static int generateUniqueUserId() throws ClientFaultException_Exception {
-        int userId = 1;
-        while (userService.getUserById(userId) != null) {
-            userId++;
-        }
-        return userId;
-    }
 
     private static void login(Scanner scanner) {
         System.out.print("Введіть логін: ");
@@ -202,7 +195,7 @@ public class ClientApp {
     }
 
 
-    private static void addProduct(Scanner scanner) throws ClientFaultException_Exception {
+    private static void addProduct(Scanner scanner)  {
         System.out.print("Введіть назву продукту: ");
         String name = scanner.nextLine();
 
@@ -245,9 +238,9 @@ public class ClientApp {
                 scanner.nextLine();
             }
         }
-
+        int newProductId = productService.generateUniqueProductId();
         Product newProduct = new Product();
-        newProduct.setID(generateUniqueProductId());
+        newProduct.setID(newProductId);
         newProduct.setName(name);
         newProduct.setDescription(description);
         newProduct.setPrice(price);
@@ -263,14 +256,7 @@ public class ClientApp {
             System.out.println("Помилка сервера: " + e.getMessage());
         }
     }
-    private static int generateUniqueProductId() throws ClientFaultException_Exception {
-        int productId = 1;
 
-        while (productService.getProductById(productId) != null) {
-            productId++;
-        }
-        return productId;
-    }
 
     private static void updateProduct(Scanner scanner) {
         System.out.print("Введіть ID продукту для оновлення: ");
@@ -448,7 +434,7 @@ public class ClientApp {
     public static void loadUsers() throws ClientFaultException_Exception {
         User admin = new User();
         admin.setEmail("admin@example.com");
-        admin.setID(1);
+        admin.setID(userService.generateUniqueUserId());
         admin.setLogin("admin");
         admin.setName("Admin User");
         admin.setPassword("admin123");
@@ -458,7 +444,7 @@ public class ClientApp {
 
         User user1 = new User();
         user1.setEmail("user1@example.com");
-        user1.setID(2);
+        user1.setID(userService.generateUniqueUserId());
         user1.setLogin("user1");
         user1.setName("User One");
         user1.setPassword("password1");
@@ -468,7 +454,7 @@ public class ClientApp {
 
         User user2 = new User();
         user2.setEmail("user2@example.com");
-        user2.setID(3);
+        user2.setID(userService.generateUniqueUserId());
         user2.setLogin("user2");
         user2.setName("User Two");
         user2.setPassword("password2");

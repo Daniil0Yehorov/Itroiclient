@@ -28,18 +28,56 @@ public interface UserService {
 
     /**
      * 
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "generateUniqueUserId", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GenerateUniqueUserId")
+    @ResponseWrapper(localName = "generateUniqueUserIdResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GenerateUniqueUserIdResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/UserService/generateUniqueUserIdRequest", output = "http://ServiceImplementation.itroi.itroi.com/UserService/generateUniqueUserIdResponse")
+    public int generateUniqueUserId();
+
+    /**
+     * 
      * @param arg0
+     * @return
+     *     returns com.itroi.itroi.serviceimplementation.User
      * @throws ClientFaultException_Exception
      */
     @WebMethod
-    @RequestWrapper(localName = "deleteUser", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.DeleteUser")
-    @ResponseWrapper(localName = "deleteUserResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.DeleteUserResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/UserService/deleteUserRequest", output = "http://ServiceImplementation.itroi.itroi.com/UserService/deleteUserResponse", fault = {
-        @FaultAction(className = ClientFaultException_Exception.class, value = "http://ServiceImplementation.itroi.itroi.com/UserService/deleteUser/Fault/ClientFaultException")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getUserById", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetUserById")
+    @ResponseWrapper(localName = "getUserByIdResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetUserByIdResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/UserService/getUserByIdRequest", output = "http://ServiceImplementation.itroi.itroi.com/UserService/getUserByIdResponse", fault = {
+        @FaultAction(className = ClientFaultException_Exception.class, value = "http://ServiceImplementation.itroi.itroi.com/UserService/getUserById/Fault/ClientFaultException")
     })
-    public void deleteUser(
+    public User getUserById(
         @WebParam(name = "arg0", targetNamespace = "")
         int arg0)
+        throws ClientFaultException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns com.itroi.itroi.serviceimplementation.User
+     * @throws ClientFaultException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getUserforAuth", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetUserforAuth")
+    @ResponseWrapper(localName = "getUserforAuthResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetUserforAuthResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/UserService/getUserforAuthRequest", output = "http://ServiceImplementation.itroi.itroi.com/UserService/getUserforAuthResponse", fault = {
+        @FaultAction(className = ClientFaultException_Exception.class, value = "http://ServiceImplementation.itroi.itroi.com/UserService/getUserforAuth/Fault/ClientFaultException")
+    })
+    public User getUserforAuth(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1)
         throws ClientFaultException_Exception
     ;
 
@@ -69,6 +107,23 @@ public interface UserService {
      * @throws ClientFaultException_Exception
      */
     @WebMethod
+    @RequestWrapper(localName = "deleteUser", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.DeleteUser")
+    @ResponseWrapper(localName = "deleteUserResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.DeleteUserResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/UserService/deleteUserRequest", output = "http://ServiceImplementation.itroi.itroi.com/UserService/deleteUserResponse", fault = {
+        @FaultAction(className = ClientFaultException_Exception.class, value = "http://ServiceImplementation.itroi.itroi.com/UserService/deleteUser/Fault/ClientFaultException")
+    })
+    public void deleteUser(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0)
+        throws ClientFaultException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
+     * @throws ClientFaultException_Exception
+     */
+    @WebMethod
     @RequestWrapper(localName = "createUser", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.CreateUser")
     @ResponseWrapper(localName = "createUserResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.CreateUserResponse")
     @Action(input = "http://ServiceImplementation.itroi.itroi.com/UserService/createUserRequest", output = "http://ServiceImplementation.itroi.itroi.com/UserService/createUserResponse", fault = {
@@ -77,49 +132,6 @@ public interface UserService {
     public void createUser(
         @WebParam(name = "arg0", targetNamespace = "")
         User arg0)
-        throws ClientFaultException_Exception
-    ;
-
-    /**
-     * 
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns com.itroi.itroi.serviceimplementation.User
-     * @throws ClientFaultException_Exception
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getUserforAuth", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetUserforAuth")
-    @ResponseWrapper(localName = "getUserforAuthResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetUserforAuthResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/UserService/getUserforAuthRequest", output = "http://ServiceImplementation.itroi.itroi.com/UserService/getUserforAuthResponse", fault = {
-        @FaultAction(className = ClientFaultException_Exception.class, value = "http://ServiceImplementation.itroi.itroi.com/UserService/getUserforAuth/Fault/ClientFaultException")
-    })
-    public User getUserforAuth(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        String arg1)
-        throws ClientFaultException_Exception
-    ;
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns com.itroi.itroi.serviceimplementation.User
-     * @throws ClientFaultException_Exception
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getUserById", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetUserById")
-    @ResponseWrapper(localName = "getUserByIdResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetUserByIdResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/UserService/getUserByIdRequest", output = "http://ServiceImplementation.itroi.itroi.com/UserService/getUserByIdResponse", fault = {
-        @FaultAction(className = ClientFaultException_Exception.class, value = "http://ServiceImplementation.itroi.itroi.com/UserService/getUserById/Fault/ClientFaultException")
-    })
-    public User getUserById(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0)
         throws ClientFaultException_Exception
     ;
 

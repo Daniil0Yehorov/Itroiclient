@@ -29,26 +29,6 @@ public interface CartService {
 
     /**
      * 
-     * @param arg1
-     * @param arg0
-     * @throws ClientFaultException_Exception
-     */
-    @WebMethod
-    @RequestWrapper(localName = "addProductToCart", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.AddProductToCart")
-    @ResponseWrapper(localName = "addProductToCartResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.AddProductToCartResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/CartService/addProductToCartRequest", output = "http://ServiceImplementation.itroi.itroi.com/CartService/addProductToCartResponse", fault = {
-        @FaultAction(className = ClientFaultException_Exception.class, value = "http://ServiceImplementation.itroi.itroi.com/CartService/addProductToCart/Fault/ClientFaultException")
-    })
-    public void addProductToCart(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        int arg1)
-        throws ClientFaultException_Exception
-    ;
-
-    /**
-     * 
      * @return
      *     returns java.util.List<com.itroi.itroi.serviceimplementation.Cart>
      */
@@ -73,6 +53,26 @@ public interface CartService {
     public Cart getCartById(
         @WebParam(name = "arg0", targetNamespace = "")
         int arg0);
+
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     * @throws ClientFaultException_Exception
+     */
+    @WebMethod
+    @RequestWrapper(localName = "addProductToCart", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.AddProductToCart")
+    @ResponseWrapper(localName = "addProductToCartResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.AddProductToCartResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/CartService/addProductToCartRequest", output = "http://ServiceImplementation.itroi.itroi.com/CartService/addProductToCartResponse", fault = {
+        @FaultAction(className = ClientFaultException_Exception.class, value = "http://ServiceImplementation.itroi.itroi.com/CartService/addProductToCart/Fault/ClientFaultException")
+    })
+    public void addProductToCart(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        int arg1)
+        throws ClientFaultException_Exception
+    ;
 
     /**
      * 
@@ -104,18 +104,6 @@ public interface CartService {
     /**
      * 
      * @param arg0
-     */
-    @WebMethod
-    @RequestWrapper(localName = "checkout", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.Checkout")
-    @ResponseWrapper(localName = "checkoutResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.CheckoutResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/CartService/checkoutRequest", output = "http://ServiceImplementation.itroi.itroi.com/CartService/checkoutResponse")
-    public void checkout(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0);
-
-    /**
-     * 
-     * @param arg0
      * @return
      *     returns com.itroi.itroi.serviceimplementation.Cart
      * @throws ClientFaultException_Exception
@@ -132,6 +120,18 @@ public interface CartService {
         int arg0)
         throws ClientFaultException_Exception
     ;
+
+    /**
+     * 
+     * @param arg0
+     */
+    @WebMethod
+    @RequestWrapper(localName = "checkout", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.Checkout")
+    @ResponseWrapper(localName = "checkoutResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.CheckoutResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/CartService/checkoutRequest", output = "http://ServiceImplementation.itroi.itroi.com/CartService/checkoutResponse")
+    public void checkout(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0);
 
     /**
      * 
