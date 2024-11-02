@@ -30,6 +30,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *             &lt;/complexContent&gt;
  *           &lt;/complexType&gt;
  *         &lt;/element&gt;
+ *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="TotalAmount" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
  *         &lt;element name="UserID" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *       &lt;/sequence&gt;
@@ -43,6 +44,7 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "cart", propOrder = {
     "productIDs",
+    "status",
     "totalAmount",
     "userID"
 })
@@ -50,6 +52,7 @@ public class Cart {
 
     @XmlElement(name = "ProductIDs")
     protected Cart.ProductIDs productIDs;
+    protected String status;
     @XmlElement(name = "TotalAmount")
     protected double totalAmount;
     @XmlElement(name = "UserID")
@@ -77,6 +80,30 @@ public class Cart {
      */
     public void setProductIDs(Cart.ProductIDs value) {
         this.productIDs = value;
+    }
+
+    /**
+     * Gets the value of the status property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * Sets the value of the status property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setStatus(String value) {
+        this.status = value;
     }
 
     /**

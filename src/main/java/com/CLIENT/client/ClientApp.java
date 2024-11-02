@@ -17,7 +17,6 @@ public class ClientApp {
     public static void main(String[] args) {
 
         try {
-
             //adding some data
             //and getting services
             initializeServices();
@@ -64,7 +63,7 @@ public class ClientApp {
         String email = scanner.nextLine();
         System.out.print("Введіть номер телефону: ");
         String phone = scanner.nextLine();
-        String type = "Користувач";
+        String type = "User";
 
         int newUserId = userService.generateUniqueUserId();
         User newUser = new User();
@@ -397,10 +396,12 @@ public class ClientApp {
             Cart cart = cartService.getCartById(loggedInUser.getID());
             cartService.checkout(cart.getUserID());
             System.out.println("Замовлення успішно оформлено.");
+            System.out.println("ID користувача: " + cart.getUserID());
+            System.out.println("Загальна сума: " + cart.getTotalAmount());
+
         } catch (Exception e) {
             System.out.println("Помилка сервера: " + e.getMessage());
         }
-        //exception
     }
     public static void loadProducts() throws ClientFaultException_Exception {
         Product product1 = new Product();
@@ -439,7 +440,7 @@ public class ClientApp {
         admin.setName("Admin User");
         admin.setPassword("admin123");
         admin.setPhone("123-456-7890");
-        admin.setType("Адміністратор");
+        admin.setType("Admin");
         userService.createUser(admin);
 
         User user1 = new User();
@@ -449,7 +450,7 @@ public class ClientApp {
         user1.setName("User One");
         user1.setPassword("password1");
         user1.setPhone("321-654-0987");
-        user1.setType("Користувач");
+        user1.setType("User");
         userService.createUser(user1);
 
         User user2 = new User();
@@ -459,7 +460,7 @@ public class ClientApp {
         user2.setName("User Two");
         user2.setPassword("password2");
         user2.setPhone("987-654-3210");
-        user2.setType("Користувач");
+        user2.setType("User");
         userService.createUser(user2);
     }
 }

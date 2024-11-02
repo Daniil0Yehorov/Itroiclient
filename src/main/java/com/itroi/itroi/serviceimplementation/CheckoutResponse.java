@@ -3,6 +3,7 @@ package com.itroi.itroi.serviceimplementation;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
 
 
@@ -16,6 +17,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
+ *         &lt;element name="return" type="{http://ServiceImplementation.itroi.itroi.com/}cart" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -25,8 +27,36 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "checkoutResponse")
+@XmlType(name = "checkoutResponse", propOrder = {
+    "_return"
+})
 public class CheckoutResponse {
 
+    @XmlElement(name = "return")
+    protected Cart _return;
+
+    /**
+     * Gets the value of the return property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Cart }
+     *     
+     */
+    public Cart getReturn() {
+        return _return;
+    }
+
+    /**
+     * Sets the value of the return property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Cart }
+     *     
+     */
+    public void setReturn(Cart value) {
+        this._return = value;
+    }
 
 }

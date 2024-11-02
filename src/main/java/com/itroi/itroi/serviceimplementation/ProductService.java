@@ -29,6 +29,18 @@ public interface ProductService {
 
     /**
      * 
+     * @return
+     *     returns java.util.List<com.itroi.itroi.serviceimplementation.Product>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getAllProducts", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetAllProducts")
+    @ResponseWrapper(localName = "getAllProductsResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetAllProductsResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/ProductService/getAllProductsRequest", output = "http://ServiceImplementation.itroi.itroi.com/ProductService/getAllProductsResponse")
+    public List<Product> getAllProducts();
+
+    /**
+     * 
      * @param arg0
      * @return
      *     returns com.itroi.itroi.serviceimplementation.Product
@@ -83,30 +95,6 @@ public interface ProductService {
 
     /**
      * 
-     * @return
-     *     returns java.util.List<com.itroi.itroi.serviceimplementation.Product>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getAllProducts", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetAllProducts")
-    @ResponseWrapper(localName = "getAllProductsResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GetAllProductsResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/ProductService/getAllProductsRequest", output = "http://ServiceImplementation.itroi.itroi.com/ProductService/getAllProductsResponse")
-    public List<Product> getAllProducts();
-
-    /**
-     * 
-     * @return
-     *     returns int
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "generateUniqueProductId", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GenerateUniqueProductId")
-    @ResponseWrapper(localName = "generateUniqueProductIdResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GenerateUniqueProductIdResponse")
-    @Action(input = "http://ServiceImplementation.itroi.itroi.com/ProductService/generateUniqueProductIdRequest", output = "http://ServiceImplementation.itroi.itroi.com/ProductService/generateUniqueProductIdResponse")
-    public int generateUniqueProductId();
-
-    /**
-     * 
      * @param arg0
      * @return
      *     returns com.itroi.itroi.serviceimplementation.Product
@@ -124,5 +112,17 @@ public interface ProductService {
         Product arg0)
         throws ClientFaultException_Exception
     ;
+
+    /**
+     * 
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "generateUniqueProductId", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GenerateUniqueProductId")
+    @ResponseWrapper(localName = "generateUniqueProductIdResponse", targetNamespace = "http://ServiceImplementation.itroi.itroi.com/", className = "com.itroi.itroi.serviceimplementation.GenerateUniqueProductIdResponse")
+    @Action(input = "http://ServiceImplementation.itroi.itroi.com/ProductService/generateUniqueProductIdRequest", output = "http://ServiceImplementation.itroi.itroi.com/ProductService/generateUniqueProductIdResponse")
+    public int generateUniqueProductId();
 
 }
