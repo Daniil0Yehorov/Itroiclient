@@ -130,18 +130,6 @@
 						<sourceDestDir>${project.build.sourceDirectory}</sourceDestDir>
 					</configuration>
 				</plugin>
-				<!-- хз что
-				<plugin>
-					<groupId>org.apache.tomcat.maven</groupId>
-					<artifactId>tomcat7-maven-plugin</artifactId>
-					<version>2.2</version>
-					<configuration>
-						<url>http://localhost:8080/manager/text</url>
-						<username>tomcat</username>
-						<password>tomcat</password>
-						<path>/books</path>
-					</configuration>
-				</plugin>-->
 			</plugins>
 		</pluginManagement>
 	</build>
