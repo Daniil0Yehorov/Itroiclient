@@ -3,6 +3,7 @@ package com.CLIENT.client;
 import com.itroi.itroi.serviceimpl.*;
 
 import javax.xml.namespace.QName;
+import java.lang.Exception;
 import java.net.URL;
 import java.util.InputMismatchException;
 import java.util.List;
