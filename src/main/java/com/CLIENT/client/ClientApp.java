@@ -1,6 +1,6 @@
 package com.CLIENT.client;
 
-import com.itroi.itroi.serviceimplementation.*;
+import com.itroi.itroi.serviceimpl.*;
 
 import javax.xml.namespace.QName;
 import java.net.URL;
@@ -13,6 +13,7 @@ public class ClientApp {
     private static CartService cartService;
     private static ProductService productService;
     private static User loggedInUser;
+
 
     public static void main(String[] args) {
 
@@ -91,9 +92,9 @@ public class ClientApp {
         URL userServiceWsdlURL = new URL("http://localhost:8081/ws/users?wsdl");
         URL cartServiceWsdlURL = new URL("http://localhost:8081/ws/carts?wsdl");
 
-        QName productQName = new QName("http://ServiceImplementation.itroi.itroi.com/", "ProductServiceImplService");
-        QName userQName = new QName("http://ServiceImplementation.itroi.itroi.com/", "UserServiceImplService");
-        QName cartQName = new QName("http://ServiceImplementation.itroi.itroi.com/", "CartServiceImplService");
+        QName productQName = new QName("http://serviceimpl.itroi.itroi.com/", "productImplementationService");
+        QName userQName = new QName("http://serviceimpl.itroi.itroi.com/", "userImplementationService");
+        QName cartQName = new QName("http://serviceimpl.itroi.itroi.com/", "cartImplementationService");
 
         jakarta.xml.ws.Service productServiceInstance = jakarta.xml.ws.Service.create(productServiceWsdlURL, productQName);
         jakarta.xml.ws.Service userServiceInstance = jakarta.xml.ws.Service.create(userServiceWsdlURL, userQName);
@@ -114,7 +115,7 @@ public class ClientApp {
         try {
             loggedInUser = userService.getUserforAuth(password, login);
             if (loggedInUser != null) {
-                if (loggedInUser.getType().equals("Адміністратор")) {
+                if (loggedInUser.getType().equals("Admin")) {
                     adminMenu(scanner);
                 } else {
                     userMenu(scanner);
@@ -361,8 +362,7 @@ public class ClientApp {
         try {
             Product product = productService.getProductById(productId);
             if (product != null) {
-                Cart cart = cartService.getCartById(loggedInUser.getID());
-                cartService.addProductToCart(cart.getUserID(), product.getID());
+                cartService.addProductToCart(loggedInUser.getID(), product.getID());
                 System.out.println("Продукт додано до кошика.");
             } else {
                 System.out.println("Продукт не знайдено.");
@@ -381,8 +381,7 @@ public class ClientApp {
         scanner.nextLine();
 
         try {
-            Cart cart = cartService.getCartById(loggedInUser.getID());
-            cartService.removeProductFromCart(cart.getUserID(), productId);
+            cartService.removeProductFromCart(loggedInUser.getID(), productId);
             System.out.println("Продукт видалено з кошика.");
         } catch (ClientFaultException_Exception e) {
             System.out.println("Помилка клієнта: " + e.getMessage());
@@ -393,11 +392,28 @@ public class ClientApp {
 
     private static void checkout() {
         try {
-            Cart cart = cartService.getCartById(loggedInUser.getID());
-            cartService.checkout(cart.getUserID());
+            List<Product> products = productService.getAllProducts();
+            Cart cart =cartService.checkout(loggedInUser.getID());
             System.out.println("Замовлення успішно оформлено.");
             System.out.println("ID користувача: " + cart.getUserID());
             System.out.println("Загальна сума: " + cart.getTotalAmount());
+
+                System.out.println("User ID: " + cart.getUserID());
+                List<Integer> productIDs = cart.getProductIDs().getProductID();
+
+                System.out.print("Product IDs: ");
+                for (Integer productId : productIDs) {
+                    System.out.print(productId + " ");
+
+                    for (Product product : products) {
+                        if (product.getID() == productId) {
+                            System.out.println(" (Назва продукту: " + product.getName() + ")");
+                            break;
+                        }
+                    }
+                }
+                System.out.println("Status: " + cart.getStatus());
+                System.out.println("----------------------------");
 
         } catch (Exception e) {
             System.out.println("Помилка сервера: " + e.getMessage());
