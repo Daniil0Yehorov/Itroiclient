@@ -167,9 +167,10 @@ public class ClientApp {
             System.out.println("\n--- Меню Користувача ---");
             System.out.println("1. Переглянути всі продукти");
             System.out.println("2. Додати продукт до кошика");
-            System.out.println("3. Видалити продукт з кошика");
-            System.out.println("4. Завершити замовлення");
-            System.out.println("5. Вийти");
+            System.out.println("3. Переглянути мій кошик");
+            System.out.println("4. Видалити продукт з кошика");
+            System.out.println("5. Завершити замовлення");
+            System.out.println("6. Вийти");
             System.out.print("Виберіть опцію: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -182,12 +183,15 @@ public class ClientApp {
                     addProductToCart(scanner);
                     break;
                 case 3:
-                    removeProductFromCart(scanner);
+                    viewCart();
                     break;
                 case 4:
-                    checkout();
+                    removeProductFromCart(scanner);
                     break;
                 case 5:
+                    checkout();
+                    break;
+                case 6:
                     return;
                 default:
                     System.out.println("Неправильний вибір. Спробуйте ще раз.");
@@ -479,6 +483,31 @@ public class ClientApp {
         user2.setPhone("987-654-3210");
         user2.setType("User");
         userService.createUser(user2);
+    }
+    private static void viewCart() {
+        try {
+            if (loggedInUser != null) {
+                Cart userCart = cartService.getCartById(loggedInUser.getID());
+                if (userCart != null && userCart.getProductIDs() != null) {
+                    System.out.println("--- Ваш кошик ---");
+                    List<Integer> productIds = userCart.getProductIDs().getProductID();
+                    for (int productId : productIds) {
+                        Product product = productService.getProductById(productId);
+                        if (product != null) {
+                            System.out.println("Продукт ID: " + product.getID() + ", Назва: " + product.getName() + ", Ціна: " + product.getPrice() + " грн.");
+                        }
+                    }
+                } else {
+                    System.out.println("Ваш кошик порожній.");
+                }
+            } else {
+                System.out.println("Спочатку увійдіть в систему.");
+            }
+        } catch (ClientFaultException_Exception e) {
+            System.out.println("Помилка клієнта: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Помилка сервера: " + e.getMessage());
+        }
     }
 }
 
