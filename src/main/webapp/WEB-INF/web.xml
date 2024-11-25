@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <display-name>PetStoreApp</display-name>
+
+    <welcome-file-list>
+        <welcome-file>login.jsp</welcome-file>
+    </welcome-file-list>
+
+    <context-param>
+        <param-name>userWsdl</param-name>
+        <param-value>http://localhost:8081/ws/users?wsdl</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>productWsdl</param-name>
+        <param-value>http://localhost:8081/ws/products?wsdl</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>cartWsdl</param-name>
+        <param-value>http://localhost:8081/ws/carts?wsdl</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>com.itroi.itroi.listeners.ContextListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>com.itroi.itroi.listeners.SessionListener</listener-class>
+    </listener>
+    <!-- Конфигурация сервлета для логина -->
+
+    <servlet>
+        <servlet-name>Loginservlet</servlet-name>
+        <servlet-class>com.itroi.itroi.servlets.Loginservlet</servlet-class>
+    </servlet>
+    <!--  <servlet-mapping>
+          <servlet-name>Loginservlet</servlet-name>
+          <url-pattern>/login</url-pattern>
+      </servlet-mapping>-->
+
+    <!-- Конфигурация сервлета для регистрации -->
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>com.itroi.itroi.servlets.RegisterServlet</servlet-class>
+    </servlet>
+<!--
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>-->
+
+    <!-- Конфигурация сервлета для обработки панели пользователя -->
+    <servlet>
+        <servlet-name>UserDashboardServlet</servlet-name>
+        <servlet-class>com.itroi.itroi.servlets.UserDashboardServlet</servlet-class>
+    </servlet>
+<!--
+    <servlet-mapping>
+        <servlet-name>UserDashboardServlet</servlet-name>
+        <url-pattern>/user/dashboard</url-pattern>
+    </servlet-mapping>
+-->
+    <!-- Конфигурация сервлета для обработки панели администратора -->
+    <servlet>
+        <servlet-name>AdminDashboardServlet</servlet-name>
+        <servlet-class>com.itroi.itroi.servlets.AdminDashboardServlet</servlet-class>
+    </servlet>
+    <!--использовать если  без анотации юрл в сервлетах-->
+<!--
+    <servlet-mapping>
+        <servlet-name>AdminDashboardServlet</servlet-name>
+        <url-pattern>/admin/dashboard</url-pattern>
+    </servlet-mapping>-->
+
+    <servlet>
+        <servlet-name>addToCartServlet</servlet-name>
+        <servlet-class>com.itroi.itroi.servlets.addToCartServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>CartViewServlet</servlet-name>
+        <servlet-class>com.itroi.itroi.servlets.CartViewServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <servlet-class>com.itroi.itroi.servlets.CheckoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductsServlet</servlet-name>
+        <servlet-class>com.itroi.itroi.servlets.ProductsServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>RemoveFromCartServlet</servlet-name>
+        <servlet-class>com.itroi.itroi.servlets.RemoveFromCartServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>UpdateProfileServlet</servlet-name>
+        <servlet-class>com.itroi.itroi.servlets.UpdateProfileServlet</servlet-class>
+    </servlet>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+
+</web-app>

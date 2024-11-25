@@ -175,4 +175,16 @@ public class Product {
         this.countInStock = value;
     }
 
+   @Override
+   public String toString() {
+       return "Product{" +
+               "ID=" + id +
+               ", name='" + name + '\'' +
+               ", price=" + price +
+               ", description='" + description + '\'' +
+               ", category='" + category + '\'' +
+               ", countInStock=" + countInStock +
+               '}';
+   }
 }
+

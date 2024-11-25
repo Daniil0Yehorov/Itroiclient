@@ -196,6 +196,15 @@ public class Cart {
             }
             return this.productID;
         }
+        public void setProductID(List<Integer> productID) {
+            if (this.productID == null) {
+                this.productID = new ArrayList<>();
+            }
+            this.productID.clear();
+            if (productID != null) {
+                this.productID.addAll(productID);
+            }
+        }
 
     }
 
