@@ -17,12 +17,12 @@ public class ContextListener implements ServletContextListener {
         ServletContext ctx = event.getServletContext();
         log.trace("Context initialized");
 
-        // Извлекаем все WSDL URL из контекста
+        //  отримання з контексту wsdl
         String userWsdlUrl = ctx.getInitParameter("userWsdl");
         String productWsdlUrl = ctx.getInitParameter("productWsdl");
         String cartWsdlUrl = ctx.getInitParameter("cartWsdl");
 
-        // Логируем URL для проверки
+        // логування юрл для перевірки
         log.debug("User WSDL URL: {}", userWsdlUrl);
         log.debug("Product WSDL URL: {}", productWsdlUrl);
         log.debug("Cart WSDL URL: {}", cartWsdlUrl);

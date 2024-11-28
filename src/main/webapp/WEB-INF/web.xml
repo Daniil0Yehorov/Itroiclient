@@ -101,8 +101,18 @@
     </servlet>
 
     <servlet>
+        <servlet-name> addProductServlet</servlet-name>
+        <servlet-class>com.itroi.itroi.servlets. addProductServlet</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>UpdateProfileServlet</servlet-name>
         <servlet-class>com.itroi.itroi.servlets.UpdateProfileServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>updateProductServlet</servlet-name>
+        <servlet-class>com.itroi.itroi.servlets.updateProductServlet</servlet-class>
     </servlet>
 
     <error-page>

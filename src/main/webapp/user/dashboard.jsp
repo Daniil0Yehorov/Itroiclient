@@ -38,6 +38,6 @@
     </form>
 
     <br>
-    <a href="logout">Вийти з акаунта</a>
+    <a href="/logout.jsp">Вийти з акаунта</a>
 </body>
 </html>

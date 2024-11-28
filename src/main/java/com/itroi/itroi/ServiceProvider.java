@@ -6,7 +6,7 @@ import com.itroi.itroi.serviceimpl.UserService;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
+
 
 public class ServiceProvider {
     private static UserService users;

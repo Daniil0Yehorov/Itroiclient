@@ -6,13 +6,11 @@
     <title>Панель адміністратора</title>
 </head>
 <body>
-    <h1>Вітаємо, Адміністратор!</h1>
-    <p>Це ваша панель управління.</p>
-    <ul>
-        <li><a href="#">Керування користувачами</a></li>
-        <li><a href="#">Керування товарами</a></li>
-        <li><a href="#">Перегляд замовлень</a></li>
-    </ul>
-    <a href="logout.jsp">Вийти</a>
+     <h2>Вітаємо, ${user.name}!</h2>
+     <ul>
+            <li><a href="/add-product">Додати продукт</a></li>
+            <li><a href="/update-product">Оновити або видалити продукт</a></li>
+        </ul>
+        <a href="/logout.jsp">Вийти</a>
 </body>
 </html>
