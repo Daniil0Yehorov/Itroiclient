@@ -27,7 +27,6 @@
     </form>
     <p>Вже маєте акаунт? <a href="login.jsp">Увійти</a></p>
 
-    <%-- Отображение ошибок --%>
     <c:if test="${not empty error}">
         <div style="color: red;">${error}</div>
     </c:if>
