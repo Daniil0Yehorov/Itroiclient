@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Продукты</title>
+    <title>Продукти</title>
 </head>
 <body>
     <h1>Список продуктов</h1>
